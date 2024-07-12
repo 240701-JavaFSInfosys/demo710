@@ -1,6 +1,7 @@
 package com.revature;
 
 import com.revature.DAO.PersonDAO;
+import com.revature.Exception.PersonException;
 import com.revature.Model.Person;
 import com.revature.Service.PersonService;
 import com.revature.Util.ConnectionSingleton;
@@ -33,6 +34,8 @@ public class Main {
                     personService.addPerson(person);
                 }catch (RuntimeException e){
                     System.out.println("Invalid input.");
+                }catch(PersonException e){
+                    System.out.println(e.getMessage());
                 }
             }else if(input.charAt(0)=='2'){
                 List<Person> allPerson = personService.getAllPerson();

@@ -1,6 +1,8 @@
 package com.revature.Service;
 
 import com.revature.DAO.PersonDAO;
+import com.revature.Exception.PersonAlreadyExistsException;
+import com.revature.Exception.PersonException;
 import com.revature.Model.Person;
 
 import java.util.List;
@@ -36,7 +38,16 @@ public class PersonService {
         return person;
     }
 
-    public void addPerson(Person person){
-        personDAO.addPerson(person);
+    /**
+     * if a person with a specific id already exists, and we attempt to add a new
+     * person with the same id, an exception in thrown.
+     * @param person
+     */
+    public void addPerson(Person person) throws PersonException {
+        if(personDAO.getPersonById(person.getId())!=null){
+            throw new PersonAlreadyExistsException("person with id " + person.getId() + " already exists.");
+        }else {
+            personDAO.addPerson(person);
+        }
     }
 }
